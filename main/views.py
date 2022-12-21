@@ -1,14 +1,8 @@
 from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet
 
-from .models import Category, Film
-from .serializers import CategorySerializer, FilmSerializer
+# Create your views here.
 
-class FilmViewSet(ModelViewSet):
-    queryset = Film.objects.all()
-    serializer_class= FilmSerializer
-
-class CategoryViewSet(ModelViewSet):
-    queryset =Category.objects.all()
-    serializer_class= CategorySerializer
-
+class Rating(models.Model):
+    user = models.IntegerField()
+    film = models.IntegerField()
+    value = models.enums()
