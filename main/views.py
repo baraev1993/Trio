@@ -1,19 +1,32 @@
 from django.shortcuts import render
-from .models import models
+from rest_framework.viewsets import generics
 
-class Comment(models.Model):
-    user = models.IntegerField()
-    body = models.TextField()
-    craeted_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+from rest_framework.viewsets import ModelViewSet
 
-class User(models.Model):
-    email = models.EmailField()
-    password = models.CharField(max_length=10)
-    last_name = models.CharField(max_length=20)
-    first_name = models.CharField(max_length=30)        
+from .models import Category, Film
 
-class Rating(models.Model):
-    user = models.IntegerField()
-    film = models.IntegerField()
-    value = models.enums()
+from .serializers import CategorySerializer, FilmSerializer
+
+class CategoryListView(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+# class FilmView(generics.ListCreateAPIView):
+#     queryset = Film.objects.all()
+#     serializer_class = FilmSerializer
+
+# class FilmDetailView(generics.RetrieveAPIView):
+#     queryset = Film.objects.all()
+#     serializer_class = FilmSerializer
+
+# class FilmUpdateView(generics.UpdateAPIView):
+#     queryset = Film.objects.all()
+#     serializer_class = FilmSerializer
+
+# class FilmDeleteView(generics.DestroyAPIView):
+#     queryset = Film.objects.all()
+#     serializer_class = FilmSerializer
+
+class FilmViewSet(ModelViewSet):
+    queryset = Film.objects.all()
+    serializer_class= FilmSerializer
