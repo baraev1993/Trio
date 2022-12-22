@@ -14,6 +14,7 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, **kwargs)
         user.set_password(password)
         user.save(using=self._db) 
+        user.send_activation_code()
         return user
 
     def create_user(self, email, password, **kwargs):
@@ -44,6 +45,6 @@ class User(AbstractUser):
     def send_activation_code(self):
         from django.core.mail import send_mail
         self.create_activation_code()
-        activation_link = f'http://127.0.0.1:8000/account/activate/{self.activation_code}'
+        activation_link = f'http://127.0.0.1:8000/account/activate/{self.activation_code}/'
         message = f'Активируйте свой аккаунт перейдя по ссылке:\n{activation_link}'
         send_mail('Activate account', message, 'admin@admin.com', recipient_list=[self.email])
