@@ -1,11 +1,37 @@
-# from .models import models
-# from .models import like 
+from django.db import models
+from main.models import Film
+from account.models import User
 
-# class Post(models.Model):
-#     title = models.CharField(max_length=150)
-#     slug = models.SlugField(max_length=150, unique=True, blank=True)
-#     body = models.TextField(blank=True)
-#     tags = models.ManyToManyField('Tag', blank=True, related_name='posts')
-#     date_pub = models.DateTimeField(auto_now_add=True)
-#     likes = models.IntegerField(default=0)
 
+class Comment(models.Model):
+    film = models.ForeignKey(Film , related_name='comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.author}'
+
+class Rating(models.Model):
+    film = models.ForeignKey(Film, related_name='ratings', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='ratings', on_delete=models.CASCADE)
+    value = models.IntegerField(choices=[(1,1), (2,2), (3,3), (4,4), (5,5)])
+
+    def __str__(self):
+        return f'{self.author}'
+
+class LikeFilm(models.Model):
+    author = models.ForeignKey(User,related_name='film_likes', on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, related_name= 'likes',on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.author}'
+
+    
+class Favorite(models.Model):
+    film = models.ForeignKey(Film, related_name='favorites', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='favorites', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f'{self.film}'
+     
