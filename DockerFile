@@ -16,7 +16,7 @@ RUN pip install wheel
 RUN pip install gunicorn
 RUN pip install -r req.txt
 
-ENV SECRET_KEY=$vj&cl&+y+4g0ekxjz*m%og^-!@wd2r-u4t3-d-jefo9fk+w7#
+ENV SECRET_KEY==p$cx6wu-uu#b_2=d5s)-k5tqechu5aswy@kgepo+tar(hox_u
 ENV DB_USER=postgres
 ENV DB_PASSWORD=lu4d7ZJ3gQWkAe6xcE3u
 ENV DB_HOST=containers-us-west-75.railway.app
