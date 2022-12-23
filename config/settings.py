@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
     'main',
     'account',
-    #'review',
+    'review',
 
 ]
 
