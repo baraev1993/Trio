@@ -1,6 +1,9 @@
 from rest_framework.serializers import ModelSerializer
 from .models import Comment, Rating, LikeFilm, Favorite
 
+
+
+
 class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
@@ -63,5 +66,3 @@ class FavoritSerializer(ModelSerializer):
         del rep['film']
         rep['author'] = instance.author.email
         return rep
-
-

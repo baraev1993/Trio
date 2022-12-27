@@ -41,10 +41,11 @@ class CreateRatingAPIView(APIView):
 
 
 @api_view(['POST'])
-def favourite(request):
-    author_id = request.data.get('author')
-    film_id =request.data.get('film')
-    author = get_object_or_404(User, id = author_id)
+def favourite(request,film_id):
+    if not request.user.is_authenticated:
+        return Response(status=401)
+    author = request.user
+    # film_id =request.data.get('film')
     film = get_object_or_404(Film , id = film_id)
 
     if Favorite.objects.filter(film=film, author=author).exists():
@@ -54,7 +55,7 @@ def favourite(request):
     return Response(status=201)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def toogle_like(request, film_id):
     # film_id = request.data.get('film')
     # author_id = request.data.get('author')
